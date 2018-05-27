@@ -18,3 +18,8 @@ class BaseModel():
                         nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow(),
                         nullable=False)
+
+    def save(self):
+        """
+        Save the current object to the database
+        """
