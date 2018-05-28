@@ -10,47 +10,45 @@
         <!-- MY FAVICON -->
         <link rel="shortcut icon" href="../static/images/trash_can.png">
 
+        <!-- JQUERY API -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
         <!-- SEMANTIC UI API -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
 
-        <!-- JQUERY API -->
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
         <!-- MY FILES -->
-        <script src="../static/scripts/jquery.js"></script>
         <link href="../static/styles/mycss.css" rel="stylesheet">
 
     </head>
-<body>
-    <div class="ui inverted vertical masthead center aligned segment">
-        <div class="ui container">
+    <body>
+        <div class="ui inverted vertical masthead center aligned segment">
+            <div class="ui container">
 
-            <!-- NAVIGATION BAR -->
-            <div class="ui large secondary inverted pointing menu">
-                <a class="toc item">
-                    <i class="sidebar icon"></i>
-                </a>
-                <a class="active item" href="/">Home</a>
-                <a class="item" href="/map">Map</a>
-                <a class="item">Company</a>
-                <a class="item">Careers</a>
-
-                <!-- LOGIN/SIGNUP BUTTON -->
-                <div class="right item">
-                    <a class="ui inverted button">Log in</a>
-                    <a class="ui inverted button">Sign Up</a>
+                <!-- NAVIGATION BAR -->
+                <div class="ui inverted segment">
+                    <div class="ui inverted secondary pointing menu">
+                        <i class="sidebar big icon"></i>
+                        <a class="item">Home</a>
+                        <a class="active item" href="/map">Map</a>
+                        <a class="item">Support Me</a>
+                        <div class="right menu">
+                            <a class="item">Sign Up</a>
+                            <a class="item">Login</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
             
-            <!-- CENTER OF PAGE CONTAINER -->
-            <div >
-                <h1 class="ui inverted header">Map goes here</h1>
+                <!-- CENTER OF PAGE CONTAINER -->
+                <div id="map"></div>
             </div>
         </div>
-    </div>
-</body>
-<footer>
+        <footer>
+        </footer>
+        <script src="../static/scripts/jquery.js"></script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKDfMqIrfWK-nxFS3puEfasyz_-JAHhQM&callback=initMap">
+        </script>
+    </body>
 
-</footer>
 </html>
