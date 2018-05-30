@@ -30,13 +30,14 @@ class DBStorage():
     def all(self, cls=None):
         """
         Grabs all markers if class is not User and returns a dict of them
+        cls is a string
         """
         class_list = []
         if cls is None:
             for key, value in models.classes.items():
                 class_list.append(value)
         else:
-            pass
+            class_list.append(models.classes[cls])
         new_dict = {}
         for search in class_list:
             try:
@@ -68,7 +69,6 @@ class DBStorage():
         """
         self.__session.commit()
 
-
     def reload(self):
         """
         Binds the current session to the instance
@@ -78,3 +78,23 @@ class DBStorage():
                 sessionmaker(
                 bind=self.__engine,
                 expire_on_commit=False))
+
+    def proximity(self, latitude=None, longitude=None, radius=.02):
+        """
+        Search for closest 20 trash can near the user
+        """
+        new_list = []
+        query = """
+                SELECT id, latitude, longitude, ( 6371 * acos( cos( radians({}) ) * cos( radians( latitude ) ) 
+                * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin(radians(latitude)) ) ) AS distance 
+                FROM markers 
+                HAVING distance < 20
+                ORDER BY distance
+                LIMIT 0, 5; 
+                """.format(37.752, -122.447, 37.752)
+        capture = self.__session.execute(query)
+        for objects in capture:
+            
+            new_list.append(objects)
+
+        return (new_list)
