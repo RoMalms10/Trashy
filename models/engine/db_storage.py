@@ -2,6 +2,7 @@
 """
 Creates the DBStorage class
 """
+import models
 from models.user import Base
 from os import getenv
 from sqlalchemy import create_engine
@@ -20,7 +21,6 @@ class DBStorage():
         """
         Initializes an instance of DBStorage
         """
-        print(getenv('TRASHY_MYSQL_USER'))
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
             getenv('TRASHY_MYSQL_USER'),
             getenv('TRASHY_MYSQL_PWD'),
@@ -31,6 +31,37 @@ class DBStorage():
         """
         Grabs all markers if class is not User
         """
+        class_list = []
+        if cls is None:
+            for key, value in models.classes.items():
+                class_list.append(value)
+        new_dict = {}
+        for search in class_list:
+            try:
+                capture = self.__session.query(search).all()
+            except:
+                continue
+            for objects in capture:
+                key = str(objects.__class__.__name__) + '.' + objects.id
+                new_dict[key] = objects
+        return new_dict
+
+    def new(self, obj):
+        """
+        """
+        self.__session.add(obj)
+
+    def delete(self, obj):
+        """
+        """
+        self.__session.delete(obj)
+        self.save()
+
+    def save(self):
+        """
+        """
+        self.__session.commit()
+
 
     def reload(self):
         """

@@ -13,9 +13,9 @@ class Marker(BaseModel, Base):
 
     __tablename__ = "markers"
 
-    latitude = Column(Float, nullable=False)
-    longitude = Column(Float, nullable=False)
+    latitude = Column(Float, nullable=False, default=0)
+    longitude = Column(Float, nullable=False, default=0)
     user_id = Column(String(60), ForeignKey("users.id"), nullable=True)
     upvote = Column(Integer, nullable=False, default=0)
-    city = Column(String(60), nullable=False)
-    country = Column(String(60), nullable=False)
+    city = Column(String(60), nullable=True, default="sf")
+    country = Column(String(60), nullable=True, default="usa")
