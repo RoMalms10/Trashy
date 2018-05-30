@@ -13,5 +13,9 @@ class User(BaseModel, Base):
     """
     __tablename__ = "users"
 
+    first_name = Column(String(60), nullable=True)
+    last_name = Column(String(60), nullable=True)
+    username = Column(String(60), nullable=False)
+    password = Column(String(60), nullable=False)
 
     markers = relationship('Marker', backref='user')
