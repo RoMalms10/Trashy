@@ -85,7 +85,7 @@ class DBStorage():
         """
         new_list = []
         query = """
-                SELECT id, latitude, longitude, ( 6371 * acos( cos( radians({}) ) * cos( radians( latitude ) ) 
+                SELECT id, latitude, longitude, name, ( 6371 * acos( cos( radians({}) ) * cos( radians( latitude ) ) 
                 * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin(radians(latitude)) ) ) AS distance 
                 FROM markers 
                 HAVING distance < 20
