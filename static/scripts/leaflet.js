@@ -19,7 +19,7 @@
     L.circle(info.latlng, radius).addTo(mymap);
   });
 
-  mymap.on('locationerror', function onLocationError(info) {
+  mymap.on('locationerror', function (info) {
     mymap.setView([37.752, -122.447], 16);
   });
 
