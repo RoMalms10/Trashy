@@ -35,6 +35,8 @@ class DBStorage():
         if cls is None:
             for key, value in models.classes.items():
                 class_list.append(value)
+        else:
+            pass
         new_dict = {}
         for search in class_list:
             try:
@@ -48,17 +50,21 @@ class DBStorage():
 
     def new(self, obj):
         """
+        Adds the object to the database
         """
         self.__session.add(obj)
 
-    def delete(self, obj):
+    def delete(self, obj=None):
         """
+        Deletes the object from the database
         """
-        self.__session.delete(obj)
-        self.save()
+        if (obj):
+            self.__session.delete(obj)
+            self.save()
 
     def save(self):
         """
+        Saves the current session to the database
         """
         self.__session.commit()
 
