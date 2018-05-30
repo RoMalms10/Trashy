@@ -2,8 +2,9 @@
 """
 Module that creates a User class
 """
-from models.base_model import Base
+from models.base_model import Base, BaseModel
 from sqlalchemy import Column, String, DateTime
+from sqlalchemy.orm import relationship
 
 
 class User(BaseModel, Base):

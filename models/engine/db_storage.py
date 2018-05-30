@@ -3,12 +3,12 @@
 Creates the DBStorage class
 """
 from models.user import Base
-import os
+from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 
-class DBStorage(Base):
+class DBStorage():
     """
     Class that handles the set up and storage of information in a database
     """
@@ -20,11 +20,12 @@ class DBStorage(Base):
         """
         Initializes an instance of DBStorage
         """
-        self.__engine = create_engine(mysql+mysqldb://{}:{}@{}/{}'.format(
-            os.environ.get('TRASHY_MYSQL_USER'),
-            os.environ.get('TRASHY_MYSQL_PWD'),
-            os.environ.get('TRASHY_MYSQL_HOST'),
-            os.environ.get('TRASHY_MYSQL_DB')))
+        print(getenv('TRASHY_MYSQL_USER'))
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
+            getenv('TRASHY_MYSQL_USER'),
+            getenv('TRASHY_MYSQL_PWD'),
+            getenv('TRASHY_MYSQL_HOST'),
+            getenv('TRASHY_MYSQL_DB')))
 
     def all(self, cls=None):
         """

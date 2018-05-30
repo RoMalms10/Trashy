@@ -22,7 +22,7 @@ class BaseModel():
     updated_at = Column(DateTime, default=datetime.utcnow(),
                         nullable=False)
 
-    def __init__(self, *args, *kwargs):
+    def __init__(self, *args, **kwargs):
         """
         Creates an instance of an object
         """

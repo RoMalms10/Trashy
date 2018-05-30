@@ -4,6 +4,7 @@ Flask App that handles API requests and redirects
 """
 from flask import Flask, render_template, url_for
 from flask import jsonify
+from models import storage
 
 # Flask setup
 app = Flask(__name__)
@@ -45,8 +46,6 @@ def get_bins():
             lng = lng.strip(" ")
             new_dict['location'] = {"lat": float(lat), "lng": float(lng)}
             trash_list.append(new_dict)
-            
-
     return jsonify(trash_list)
 
 if __name__ == "__main__":
