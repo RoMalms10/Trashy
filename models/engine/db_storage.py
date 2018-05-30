@@ -29,7 +29,7 @@ class DBStorage():
 
     def all(self, cls=None):
         """
-        Grabs all markers if class is not User
+        Grabs all markers if class is not User and returns a dict of them
         """
         class_list = []
         if cls is None:
