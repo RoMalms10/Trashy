@@ -5,10 +5,15 @@ if __name__ == "__main__":
     import models
     import csv
     marker = models.classes["Marker"]()
-    print(marker.id)
+    print("Marker: " + marker.id)
+    user = models.classes["User"]()
+    print("User: " + user.id)
+    user.save()
+    marker.user_id = user.id
     marker.save()
     print(models.storage.all())
     marker.delete()
+    user.delete()
     print(models.storage.all())
     with open('trash_cans.csv', newline='') as csvfile:
         data = csv.reader(csvfile, delimiter=',', quotechar="|")
