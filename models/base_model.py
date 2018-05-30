@@ -54,7 +54,7 @@ class BaseModel():
         """
         time_format = "%Y-%m-%dT%H:%M:%S.%f"
         if 'id' not in attr_dict:
-            attr_dict['id'] = str(uuid4())
+            attr_dict['id'] = str(uuid.uuid4())
         if 'created_at' not in attr_dict:
             attr_dict['created_at'] = datetime.utcnow()
         elif not isinstance(attr_dict['created_at'], datetime):
