@@ -11,22 +11,18 @@
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(mymap);
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (pos) {
+  mymap.locate();
 
-      //Center map around geolocation
-      var geo = [pos.coords.latitude, pos.coords.longitude];
-      mymap = mymap.setView(geo, 16);
+  mymap.on('locationfound', function (info) {
+    var radius = info.accuracy / 7;
+    mymap.setView([info.latitude, info.longitude], 16)
+    L.circle(info.latlng, radius).addTo(mymap);
+  });
 
-      // Add circle around person
-      var circle = L.circle(geo, {
-        color: 'red',
-        fillColor: '#f03',
-        fillOpacity: 0.2,
-        radius: 150
-      }).addTo(mymap);
-    })
-  }
+  mymap.on('locationerror', function (info) {
+    mymap.setView([37.752, -122.447], 16);
+  });
+
   $.get("/api/bins", function(data) {
     // Populates markers on map
     if(data) {
