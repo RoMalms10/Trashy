@@ -1,0 +1,33 @@
+# Ignore All
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all directories
+!*/
+
+# Ignore emacs autosave~ and #modified# files
+*~
+**/*~
+**/\#*
+
+# Ignore __pycache__
+**pycache*
+
+# Ignore .pyc files
+**.pyc
+
+# Ignore main files
+**/*main.c
+**/*main.py
+
+# Ignore object files and libraries
+*.o
+*.ko
+*.obj
+*.elf
+
+# Ignore _putchar.c and a.out
+**/_putchar.c
+**/a.out
