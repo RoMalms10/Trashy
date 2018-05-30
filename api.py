@@ -31,21 +31,12 @@ def get_bins():
     """
     Gets all of the bin info from csv file
     """
-    import csv
+    from models import storage
 
     trash_list = []
-    with open('trash_cans.csv', newline='') as csvfile:
-        data = csv.reader(csvfile, delimiter=',', quotechar="|")
-        for row in data:
-            new_dict = {}
-            new_dict['name'] = row[1]
-            lat = row[2].strip("\"")
-            lat = lat.strip("(")
-            lng = row[3].strip("\"")
-            lng = lng.strip(")")
-            lng = lng.strip(" ")
-            new_dict['location'] = {"lat": float(lat), "lng": float(lng)}
-            trash_list.append(new_dict)
+    obj_dict = storage.all()
+    for key, value in obj_dict.items():
+        trash_list.append(value.to_dict())
     return jsonify(trash_list)
 
 if __name__ == "__main__":
