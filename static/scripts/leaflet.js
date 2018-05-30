@@ -36,7 +36,7 @@
       var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {
         var popup = data[i].name + '<br/>' + 'Confirm Button Here';
-        var marker = L.marker([data[i].location.lat, data[i].location.lng]).bindPopup(popup);
+        var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popup);
         markerClusters.addLayer(marker);
       };
       mymap.addLayer(markerClusters);  
