@@ -19,3 +19,4 @@ class Marker(BaseModel, Base):
     upvote = Column(Integer, nullable=False, default=0)
     city = Column(String(60), nullable=True, default="SF")
     country = Column(String(60), nullable=True, default="USA")
+    name = Column(String(60), nullable=False)
