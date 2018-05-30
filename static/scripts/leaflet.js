@@ -20,7 +20,7 @@
   });
 
   mymap.on('locationerror', function onLocationError(info) {
-    alert(info.message);
+    mymap.setView([37.752, -122.447], 16);
   });
 
   $.get("/api/bins", function(data) {
