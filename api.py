@@ -31,8 +31,6 @@ def get_bins():
     """
     Gets all of the bin info from csv file
     """
-    from models import storage
-
     trash_list = []
     obj_dict = storage.all()
     for key, value in obj_dict.items():
@@ -43,13 +41,14 @@ def get_bins():
 def proximity_bins():
     """
     Get closest trash cans to user
+    returns a dict
     """
     radius = .02
     post_info = request.get_json()
-    prox_list = models.storage.proximity(post_info["latitude"], post_info["longitude"], radius)
-    while (len(prox_list) == 0):
-        i = 2
-        prox_list = models.storage.proximity(post_info["latitude"], post_info["longitude"], radius*i)
+    prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius)
+    i = 2
+    while (len(prox_list) != 20):
+        prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius*i)
         i = i + 1
     return jsonify(prox_list)
 
