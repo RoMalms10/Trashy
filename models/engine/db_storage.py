@@ -88,13 +88,11 @@ class DBStorage():
                 SELECT id, latitude, longitude, name, ( 6371 * acos( cos( radians({}) ) * cos( radians( latitude ) ) 
                 * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin(radians(latitude)) ) ) AS distance 
                 FROM markers 
-                HAVING distance < 20
+                HAVING distance < {}
                 ORDER BY distance
-                LIMIT 0, 5; 
-                """.format(37.752, -122.447, 37.752)
+                LIMIT 0, 20; 
+                """.format(latitude, longitude, latitude, radius)
         capture = self.__session.execute(query)
         for objects in capture:
-            
             new_list.append(objects)
-
         return (new_list)
