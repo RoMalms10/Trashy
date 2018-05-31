@@ -94,5 +94,9 @@ class DBStorage():
                 """.format(latitude, longitude, latitude, radius)
         capture = self.__session.execute(query)
         for objects in capture:
-            new_list.append(objects)
+            new_dict = {}
+            new_dict["latitude"] = objects[1]
+            new_dict["longitude"] = objects[2]
+            new_dict["name"] = objects[3]
+            new_list.append(new_dict)
         return (new_list)
