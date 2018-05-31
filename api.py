@@ -3,7 +3,7 @@
 Flask App that handles API requests and redirects
 """
 from flask import Flask, render_template, url_for
-from flask import jsonify
+from flask import jsonify, request
 from models import storage
 
 # Flask setup
@@ -38,6 +38,20 @@ def get_bins():
     for key, value in obj_dict.items():
         trash_list.append(value.to_dict())
     return jsonify(trash_list)
+
+@app.route('/api/bins/proximity', methods=['POST'])
+def proximity_bins():
+    """
+    Get closest trash cans to user
+    """
+    radius = .02
+    post_info = request.get_json()
+    prox_list = models.storage.proximity(post_info["latitude"], post_info["longitude"], radius)
+    while (len(prox_list) == 0):
+        i = 2
+        prox_list = models.storage.proximity(post_info["latitude"], post_info["longitude"], radius*i)
+        i = i + 1
+    return jsonify(prox_list)
 
 if __name__ == "__main__":
     app.run(host=host, port=port)
