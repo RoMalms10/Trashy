@@ -29,16 +29,15 @@
 
   mymap.on('locationerror', function (info) {
     mymap.setView([37.752, -122.447], 16);
-    let coords = mymap.getcenter()
-    console.log(coords)
-    // $.ajax({
-    //   url: '/api/bin/proximity',
-    //   type: 'POST',
-    //   contentType: 'application/json',
-    //   dataType: 'json',
-    //   data: JSON.stringify({'latitude': info.latitude, 'longitude': info.longitude}),
-    //   success: putMarkers
-    // })
+    let coords = mymap.getCenter()
+    $.ajax({
+      url: '/api/bins/proximity',
+      type: 'POST',
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify({'latitude': coords.lat, 'longitude': coords.lng}),
+      success: putMarkers
+    })
   });
 
   function putMarkers (data) {
