@@ -100,3 +100,18 @@ class DBStorage():
             new_dict["name"] = objects[3]
             new_list.append(new_dict)
         return (new_list)
+
+    def g_auth_user(self, cls, user_id=None, email=None):
+        """
+        Method used to retrieve the user stored in the database
+        """
+        if email is None:
+            if user_id is not None:
+                user_dict = self.all(cls)
+                for key, value in user_dict:
+                    if user_id in key:
+                        return (value)
+            else:
+                return None
+        # elif email is not None:
+        #     self.__session.query().filter_by(email=email)
