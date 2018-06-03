@@ -89,7 +89,7 @@ def get_google_auth(state=None, token=None):
 @app.route('/login')
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('render_map_page'))
     google = get_google_auth()
     auth_url, state = google.authorization_url(
         classes["Auth"].AUTH_URI, access_type='offline')
