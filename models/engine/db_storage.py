@@ -110,7 +110,8 @@ class DBStorage():
             user_dict = self.all(cls)
             for key, value in user_dict.items():
                 if value.email == email:
-                    return (value)
+                    return value
+            return None
         else:
             return None
 
@@ -122,7 +123,8 @@ class DBStorage():
             print(user_dict)
             for key, value in user_dict.items():
                 if value.id == user_id:
-                    return (value)
+                    return value
+            return None
         else:
             return None
         # elif email is not None:
