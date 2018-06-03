@@ -104,6 +104,7 @@ class DBStorage():
     def g_auth_user(self, cls, email=None):
         """
         Method used to retrieve the user stored in the database
+        cls is a string
         """
         if email is not None:
             user_dict = self.all(cls)

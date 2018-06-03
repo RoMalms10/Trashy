@@ -120,7 +120,7 @@ def callback():
         if resp.status_code == 200:
             user_data = resp.json()
             email = user_data['email']
-            user = storage.g_auth_user(classes["User"], email)
+            user = storage.g_auth_user("User", email)
             if user is None:
                 user = classes["User"]()
                 user.email = email
