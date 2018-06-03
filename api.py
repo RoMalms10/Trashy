@@ -134,7 +134,7 @@ def callback():
         return 'Could not fetch your information.'
 
 @app.route('/logout')
-@login_required
+#@login_required
 def logout():
     logout_user()
     return redirect(url_for('landing_page'))
