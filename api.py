@@ -124,6 +124,7 @@ def callback():
             if user is None:
                 user = classes["User"]()
                 user.email = email
+                user.save()
             user.name = user_data['name']
             print(token)
             user.tokens = json.dumps(token)
