@@ -119,6 +119,7 @@ class DBStorage():
         """
         if user_id is not None:
             user_dict = self.all(cls)
+            print(user_dict)
             for key, value in user_dict:
                 if value.id == user_id:
                     return (value)
