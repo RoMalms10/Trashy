@@ -42,6 +42,7 @@
 
   function putMarkers (data) {
     if (data) {
+      console.log("I made it through the ajax");
       // Populates markers on map
       var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {

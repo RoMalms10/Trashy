@@ -29,7 +29,7 @@ def landing_page():
     return render_template('index.html')
 
 @app.route('/map')
-@login_required
+# @login_required
 def render_map_page():
     """
     Serve the map webpage

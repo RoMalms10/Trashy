@@ -1,0 +1,8 @@
+Flask
+Flask-Cors
+Flask-Login
+SQLAlchemy
+Werkzeug
+mysqlclient
+requests
+requests-oauthlib
