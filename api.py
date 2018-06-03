@@ -128,7 +128,9 @@ def callback():
             user.name = user_data['name']
             print(token)
             user.tokens = json.dumps(token)
+            print("before commit")
             storage.save()
+            print("after commit")
             login_user(user)
             return redirect(url_for('render_map_page'))
         return 'Could not fetch your information.'
