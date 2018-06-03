@@ -113,5 +113,16 @@ class DBStorage():
                     return (value)
         else:
             return None
+
+    def g_auth_user_id(self, cls, user_id=None):
+        """
+        """
+        if user_id is not None:
+            user_dict = self.all(cls)
+            for key, value in user_dict:
+                if value.id == user_id:
+                    return (value)
+        else:
+            return None
         # elif email is not None:
         #     self.__session.query().filter_by(email=email)
