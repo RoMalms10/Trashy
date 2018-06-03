@@ -105,7 +105,7 @@ def callback():
             return 'You denied access.'
         return 'Error encountered.'
     if 'code' not in request.args and 'state' not in request.args:
-        return redirect(url_for('login'))
+        return redirect(url_for('render_map_page'))
     else:
         google = get_google_auth(state=session['oauth_state'])
         try:
