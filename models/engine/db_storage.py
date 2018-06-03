@@ -79,6 +79,11 @@ class DBStorage():
                 bind=self.__engine,
                 expire_on_commit=False))
 
+    # def rollback(self):
+    #     """
+    #     """
+    #     self.__session.rollback()
+
     def proximity(self, latitude=None, longitude=None, radius=.02):
         """
         Search for closest 20 trash can near the user
@@ -120,7 +125,6 @@ class DBStorage():
         """
         if user_id is not None:
             user_dict = self.all(cls)
-            print(user_dict)
             for key, value in user_dict.items():
                 if value.id == user_id:
                     return value
