@@ -70,7 +70,7 @@ def load_user(user_id):
     """
     Grabs the user based off the user_id passed
     """
-    return storage.g_auth_user(classes["User"], user_id)
+    return storage.g_auth_user_id("User", user_id)
 
 def get_google_auth(state=None, token=None):
     if token:
