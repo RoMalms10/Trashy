@@ -7,7 +7,7 @@
   });
 
   var mymap = L.map('mapid').setView([37.752, -122.447], 16);
-  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(mymap);
 
@@ -42,6 +42,7 @@
 
   function putMarkers (data) {
     if (data) {
+      console.log("Made it through ajax");
       // Populates markers on map
       var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {

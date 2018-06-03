@@ -9,6 +9,7 @@ from flask_login import LoginManager, login_required, login_user, \
 from models import storage, classes
 from requests_oauthlib import OAuth2Session
 from requests.exceptions import HTTPError
+import json
 
 # Flask setup
 app = Flask(__name__)
@@ -119,7 +120,7 @@ def callback():
         if resp.status_code == 200:
             user_data = resp.json()
             email = user_data['email']
-            user = storage.g_auth_user(classes["User"], user_id)
+            user = storage.g_auth_user(classes["User"], email)
             if user is None:
                 user = classes["User"]()
                 user.email = email
