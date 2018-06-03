@@ -101,7 +101,7 @@ class DBStorage():
             new_list.append(new_dict)
         return (new_list)
 
-    def g_auth_user(self, cls, user_id=None, email=None):
+    def g_auth_user(self, cls, email=None):
         """
         Method used to retrieve the user stored in the database
         """
