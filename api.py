@@ -124,11 +124,10 @@ def callback():
             if user is None:
                 user = classes["User"]()
                 user.email = email
-                user.save()
             user.name = user_data['name']
             user.tokens = json.dumps(token)
             print("before commit")
-            storage.save()
+            user.save()
             print("after commit")
             login_user(user)
             return redirect(url_for('render_map_page'))
