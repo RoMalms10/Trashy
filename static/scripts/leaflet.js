@@ -78,10 +78,11 @@
       // Populates markers on map
       var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {
-        if data[i].user_id:
+        if (data[i].user_id) {
           var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>'
-        else:
+        } else {
           var popupInfo = data[i].name;
+        }
         var popup = popupInfo;
         var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popup);
         markerClusters.addLayer(marker);
