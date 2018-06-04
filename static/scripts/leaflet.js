@@ -10,11 +10,12 @@
         data: JSON.stringify({'latitude': center.lat, 'longitude': center.lng}),
         success: function (data) {
           // Adds the new marker to the map with the Delete button
-          if (data):
+          if (data) {
             var popup = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
             var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popup);
-          else:
+          } else {
             alert("Something went wrong")
+          }
         };
       })
     });
@@ -28,10 +29,11 @@
         data: JSON.stringify({'latitude': currentMarker.lat, 'longitude': currentMarker.lng}),
         success: function (data) {
           // Removes the marker from the map
-          if (data):
+          if (data) {
             mymap.removeLayer(myMarker);
-          else:
+          } else {
             alert("Something went wrong")
+          }
         };
       })
     });  
