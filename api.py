@@ -124,11 +124,16 @@ def callback():
             if user is None:
                 user = classes["User"]()
                 user.email = email
-            user.name = user_data['name']
-            user.tokens = json.dumps(token)
-            print("before commit")
-            user.save()
-            print("after commit")
+                user.name = user_data['name']
+                user.tokens = json.dumps(token)
+                user.save()
+            else:
+                user.name = user_data['name']
+                user.tokens = json.dumps(token)
+                storage.save()
+            # print("before commit")
+            # user.save()
+            # print("after commit")
             login_user(user)
             return redirect(url_for('render_map_page'))
         return 'Could not fetch your information.'
