@@ -64,6 +64,32 @@ def proximity_bins():
         i = i + 1
     return jsonify(prox_list)
 
+@app.route('/add', methods=["POST"])
+def add_marker():
+    """
+    Takes in a POST request to create a new marker from a signed in user
+    Returns the object itself that was created
+    """
+    post_info = request.get_json()
+    # Confirm the correct contents
+    new_marker = classes["Marker"]()
+    new_marker.latitude = post_info["latitude"]
+    new_marker.longitude = post_info["longitude"]
+    new_marker.save()
+    return new_marker.to_dict()
+
+@app.route('/delete', methods=["POST"])
+def delete_marker():
+    """
+    Takes a POST request with latitude and longitude to delete from DB
+    Returns {"status": ok} on success
+    """
+    delete_info = request.get_json()
+    # Confirm the user_id is the same as current user somehow
+    # Gets the object to delete
+    marker_delete = storage.get("Marker", delete_info["latitude"], delete_info["longitude"])
+    marker_delete.delete()
+
 # Google OAuth
 @login_manager.user_loader
 def load_user(user_id):
@@ -131,9 +157,6 @@ def callback():
                 user.name = user_data['name']
                 user.tokens = json.dumps(token)
                 storage.save()
-            # print("before commit")
-            # user.save()
-            # print("after commit")
             login_user(user)
             return redirect(url_for('render_map_page'))
         return 'Could not fetch your information.'
