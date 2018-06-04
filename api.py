@@ -126,7 +126,6 @@ def callback():
                 user.email = email
                 user.save()
             user.name = user_data['name']
-            print(token)
             user.tokens = json.dumps(token)
             print("before commit")
             storage.save()
