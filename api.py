@@ -142,6 +142,7 @@ def callback():
 #@login_required
 def logout():
     logout_user()
+    storage.save()
     return redirect(url_for('landing_page'))
 
 if __name__ == "__main__":

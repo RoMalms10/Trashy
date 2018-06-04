@@ -43,7 +43,8 @@ class DBStorage():
             try:
                 capture = self.__session.query(search).all()
             except:
-                continue
+                self.__session.rollback()
+                capture = self.__session.query(search).all()
             for objects in capture:
                 key = str(objects.__class__.__name__) + '.' + objects.id
                 new_dict[key] = objects
@@ -97,7 +98,11 @@ class DBStorage():
                 ORDER BY distance
                 LIMIT 0, 20; 
                 """.format(latitude, longitude, latitude, radius)
-        capture = self.__session.execute(query)
+        try:
+            capture = self.__session.execute(query)
+        except:
+            self.__session.rollback()
+            capture = self.__session.execute(query)
         for objects in capture:
             new_dict = {}
             new_dict["latitude"] = objects[1]
@@ -114,10 +119,16 @@ class DBStorage():
         if email is not None:
             user_dict = self.all(cls)
             for key, value in user_dict.items():
+                print(email, "==", value.email, "is: ", value.email == email)
+                print(u'squidcarroll@gmail.com' == value.email)
+                print(value.email)
                 if value.email == email:
+                    print("found something")
                     return value
+            print("Right after loop")
             return None
         else:
+            print("email doesn't exist")
             return None
 
     def g_auth_user_id(self, cls, user_id=None):
