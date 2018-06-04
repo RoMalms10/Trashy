@@ -1,8 +1,39 @@
 (function() {
   $(document).ready(function() {
-    // Get the menu to show when it's small
-    $('.sidebar.big.icon').click(function() {
-      $('.ui.inverted.secondary.pointing.menu').toggleClass('ui inverted vertical menu')
+    $('#submit').click(function() {
+      center = mymap.getCenter();
+      $.ajax({
+        url: '/add',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({'latitude': center.lat, 'longitude': center.lng}),
+        success: function (data) {
+          // Adds the new marker to the map with the Delete button
+          if data:
+            var popup = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
+            var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popup);
+          else:
+            alert("Something went wrong")
+        };
+      })
+    });
+    $('#delete').click(function () {
+      var currentMarker = myMarker.getLatLng();
+      $.ajax({
+        url: '/delete',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({'latitude': currentMarker.lat, 'longitude': currentMarker.lng}),
+        success: function (data) {
+          // Removes the marker from the map
+          if data:
+            mymap.removeLayer(myMarker);
+          else:
+            alert("Something went wrong")
+        };
+      })
     });  
   });
 
@@ -45,17 +76,15 @@
       // Populates markers on map
       var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {
-        var popup = data[i].name + '<br/>' + 'Confirm Button Here';
+        if data[i].user_id:
+          var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>'
+        else:
+          var popupInfo = data[i].name;
+        var popup = popupInfo;
         var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popup);
         markerClusters.addLayer(marker);
       };
       mymap.addLayer(markerClusters); 
     }
   }
-
-  // function allMarkers () {
-  //   $.get("/api/bins", putMarkers {
-  //   })
-  // }
-
 })();
