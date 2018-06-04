@@ -89,6 +89,7 @@ def delete_marker():
     # Gets the object to delete
     marker_delete = storage.get("Marker", delete_info["latitude"], delete_info["longitude"])
     marker_delete.delete()
+    # return json.dumps({"status": "ok"})
 
 # Google OAuth
 @login_manager.user_loader
