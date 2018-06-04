@@ -7,7 +7,8 @@ from models.user import Base
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-
+from sqlite3 import dbapi2 as sqlite
+from math import cos, acos, sin, radians
 
 class DBStorage():
     """
@@ -16,16 +17,23 @@ class DBStorage():
 
     __engine = None
     __session = None
+    raw_conn = None
 
     def __init__(self):
         """
         Initializes an instance of DBStorage
         """
-        self.__engine = create_engine('mysql+pymysql://{}:{}@{}/{}'.format(
-            getenv('TRASHY_MYSQL_USER'),
-            getenv('TRASHY_MYSQL_PWD'),
-            getenv('TRASHY_MYSQL_HOST'),
-            getenv('TRASHY_MYSQL_DB')))
+        self.__engine = create_engine(
+        'sqlite+pysqlite:///trashy_db.db',
+        native_datetime=True,
+        module=sqlite,
+        pool_pre_ping=True, echo=False)
+
+        self.raw_conn = self.__engine.raw_connection()
+        self.raw_conn.create_function("acos", 1, acos)
+        self.raw_conn.create_function("cos", 1, cos)
+        self.raw_conn.create_function("sin", 1, sin)
+        self.raw_conn.create_function("radians", 1, radians)
 
     def all(self, cls=None):
         """
@@ -43,8 +51,7 @@ class DBStorage():
             try:
                 capture = self.__session.query(search).all()
             except:
-                self.__session.rollback()
-                capture = self.__session.query(search).all()
+                pass
             for objects in capture:
                 key = str(objects.__class__.__name__) + '.' + objects.id
                 new_dict[key] = objects
@@ -93,16 +100,13 @@ class DBStorage():
         query = """
                 SELECT id, latitude, longitude, name, ( 6371 * acos( cos( radians({}) ) * cos( radians( latitude ) ) 
                 * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin(radians(latitude)) ) ) AS distance 
-                FROM markers 
+                FROM markers
+                GROUP BY id 
                 HAVING distance < {}
                 ORDER BY distance
                 LIMIT 0, 20; 
                 """.format(latitude, longitude, latitude, radius)
-        try:
-            capture = self.__session.execute(query)
-        except:
-            self.__session.rollback()
-            capture = self.__session.execute(query)
+        capture = self.raw_conn.execute(query)
         for objects in capture:
             new_dict = {}
             new_dict["latitude"] = objects[1]
