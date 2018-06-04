@@ -16,7 +16,7 @@
           } else {
             alert("Something went wrong")
           }
-        };
+        }
       })
     });
     $('#delete').click(function () {
@@ -34,7 +34,7 @@
           } else {
             alert("Something went wrong")
           }
-        };
+        }
       })
     });  
   });
