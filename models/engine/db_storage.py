@@ -67,7 +67,7 @@ class DBStorage():
         if len(cls_dict) == 0:
             return None
         for key, value in cls_dict.items():
-            if value.latitude = latitude and value.longitude = longitude:
+            if value.latitude == latitude and value.longitude == longitude:
                 return value
         else:
             return None
