@@ -57,6 +57,21 @@ class DBStorage():
                 new_dict[key] = objects
         return new_dict
 
+    def get(self, cls, latitude, longitude):
+        """
+        Method that retrieves an object based off the class (cls) passed
+        and the latitude and longitude of the current marker
+        """
+        cls_dict = self.all(cls)
+
+        if len(cls_dict) == 0:
+            return None
+        for key, value in cls_dict.items():
+            if value.latitude = latitude and value.longitude = longitude:
+                return value
+        else:
+            return None
+
     def new(self, obj):
         """
         Adds the object to the database
@@ -87,18 +102,14 @@ class DBStorage():
                 bind=self.__engine,
                 expire_on_commit=False))
 
-    # def rollback(self):
-    #     """
-    #     """
-    #     self.__session.rollback()
-
     def proximity(self, latitude=None, longitude=None, radius=.02):
         """
         Search for closest 20 trash can near the user
+        Returns a list of dictionaries containing information about 20 objects nearest to the user (NOT OBJECT THEMSELVES)
         """
         new_list = []
         query = """
-                SELECT id, latitude, longitude, name, ( 6371 * acos( cos( radians({}) ) * cos( radians( latitude ) ) 
+                SELECT id, latitude, longitude, name, user_id ( 6371 * acos( cos( radians({}) ) * cos( radians( latitude ) ) 
                 * cos( radians( longitude ) - radians({}) ) + sin( radians({}) ) * sin(radians(latitude)) ) ) AS distance 
                 FROM markers
                 GROUP BY id 
@@ -112,6 +123,7 @@ class DBStorage():
             new_dict["latitude"] = objects[1]
             new_dict["longitude"] = objects[2]
             new_dict["name"] = objects[3]
+            new_dict["user_id"] = objects[4]
             new_list.append(new_dict)
         return (new_list)
 
@@ -146,5 +158,3 @@ class DBStorage():
             return None
         else:
             return None
-        # elif email is not None:
-        #     self.__session.query().filter_by(email=email)
