@@ -36,7 +36,7 @@
   mymap.on('locationfound', function (info) {
     // var radius = info.accuracy / 7;
     mymap.setView([info.latitude, info.longitude], 16)
-    // L.circle(info.latlng, radius).addTo(mymap);
+    L.circle(info.latlng, 10).addTo(mymap);
     $.ajax({
       url: '/api/bins/proximity',
       type: 'POST',
