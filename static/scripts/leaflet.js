@@ -19,7 +19,7 @@
         }
       })
     });
-    $('#delete').click(function () {
+    function delete () {
       var tempMarker = this;
       var markerLoc = tempMarker.getLatLng();
       console.log("In function for delete");
@@ -38,6 +38,26 @@
           }
         }
       })
+    }
+    $('#delete').click(function () {
+      // var tempMarker = this;
+      // var markerLoc = tempMarker.getLatLng();
+      // console.log("In function for delete");
+      // $.ajax({
+      //   url: '/delete',
+      //   type: 'POST',
+      //   contentType: 'application/json',
+      //   dataType: 'json',
+      //   data: JSON.stringify({'latitude': markerLoc.lat, 'longitude': markerLoc.lng}),
+      //   success: function (data) {
+      //     // Removes the marker from the map
+      //     if (data) {
+      //       mymap.removeLayer(tempMarker);
+      //     } else {
+      //       alert("Something went wrong")
+      //     }
+      //   }
+      // })
     });
   // });
 
@@ -79,14 +99,15 @@
     if (data) {
       // Populates markers on map
       var markerClusters = L.markerClusterGroup();
+      var popupInfo = data[i].name;
       for(var i = 0 ; i <= data.length-1; i++) {
         if (data[i].user_id) {
-          var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>'
+          var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popup).bindPopup($('<div class="ui button" id="delete">Delete Trash Can</div>').click(delete));
+          // var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>'
         } else {
-          var popupInfo = data[i].name;
+          var marker = L.marker([data[i].latitude, data[i].longitude]).bindpopup(popup)
         }
-        var popup = popupInfo;
-        var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popup);
+        // var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popup).bindPopup($('#delete').click(delete));
         markerClusters.addLayer(marker);
       };
       mymap.addLayer(markerClusters); 
