@@ -60,6 +60,14 @@
   });
 
   function putMarkers (data) {
+    var greenIcon = new L.Icon({
+      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
     if (data.status === "error") {
       alert("Invalid parameters!");
     } else {
@@ -68,10 +76,11 @@
       for(var i = 0 ; i <= data.length-1; i++) {
         if (data[i].user_id) {
           var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
+          var marker = L.marker([data[i].latitude, data[i].longitude], {icon: greenIcon}).bindPopup(popupInfo);
         } else {
           var popupInfo = data[i].name;
+          var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popupInfo);
         }
-        var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popupInfo);
         // markerClusters.addLayer(marker);
         mymap.addLayer(marker);
       };
