@@ -57,6 +57,8 @@ def proximity_bins():
     """
     radius = .02
     post_info = request.get_json()
+    if "latitude" not in post_info or "longitude" not in post_info:
+        return None
     prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius)
     i = 2
     while (len(prox_list) != 20):
@@ -71,7 +73,10 @@ def add_marker():
     Returns the object itself that was created
     """
     post_info = request.get_json()
-    # Confirm the correct contents
+    if len(post_info) != 2:
+        return None
+    if "latitude" not in post_info or "longitude" not in post_info:
+        return None
     new_marker = classes["Marker"]()
     new_marker.latitude = post_info["latitude"]
     new_marker.longitude = post_info["longitude"]
@@ -86,7 +91,10 @@ def delete_marker():
     Returns {"status": ok} on success
     """
     delete_info = request.get_json()
-    # Confirm the user_id is the same as current user somehow
+    if len(delete_info) != 2:
+        return json.dumps({"status": "error"})
+    if "latitude" not in delete_info or "longitude" not in delete_info:
+        return json.dumps({"status": "error"})
     # Gets the object to delete
     marker_delete = storage.get("Marker", delete_info["latitude"], delete_info["longitude"])
     if marker_delete:
