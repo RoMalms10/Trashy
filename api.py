@@ -76,7 +76,7 @@ def add_marker():
     new_marker.latitude = post_info["latitude"]
     new_marker.longitude = post_info["longitude"]
     new_marker.save()
-    return new_marker.to_dict()
+    return jsonify(new_marker.to_dict())
 
 @app.route('/delete', methods=["POST"])
 def delete_marker():
