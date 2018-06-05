@@ -78,7 +78,7 @@ class DBStorage():
         Gets all the trash cans that a user has submitted
         returns a list of objects that user submitted
         """
-        query = "SELECT created_at FROM markers WHERE user_id = {} ORDER BY created_at DESC LIMIT 1;".format(user_id)
+        query = "SELECT created_at FROM markers WHERE user_id = {} ORDER BY created_at DESC LIMIT 1;".format(str(user_id))
         capture = self.raw_conn.execute(query)
         for objects in capture:
             new_dict = {}
