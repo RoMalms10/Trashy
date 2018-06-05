@@ -60,7 +60,9 @@
   });
 
   function putMarkers (data) {
-    if (data) {
+    if (data.status === "error") {
+      alert("Invalid parameters!");
+    } else {
       // Populates markers on map
       // var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {
@@ -74,8 +76,6 @@
         mymap.addLayer(marker);
       };
       // mymap.addLayer(markerClusters); 
-    } else {
-      alert("Invalid parameters!")
     }
   }
 

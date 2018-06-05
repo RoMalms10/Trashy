@@ -59,7 +59,7 @@ def proximity_bins():
     radius = .02
     post_info = request.get_json()
     if "latitude" not in post_info or "longitude" not in post_info:
-        return None
+        return jsonify({"status": "error"})
     prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius)
     i = 2
     while (len(prox_list) != 20):
