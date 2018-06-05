@@ -66,7 +66,10 @@ def proximity_bins():
         prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius*i)
         i = i + 1
     for dicts in prox_list:
-        if dicts["user_id"] != current_user.id:
+        if current_user is not None:
+            if dicts["user_id"] != current_user.id:
+                dicts.pop("user_id", None)
+        else:
             dicts.pop("user_id", None)
     return jsonify(prox_list)
 
