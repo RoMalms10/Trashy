@@ -31,6 +31,9 @@
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(mymap);
 
+  // Create marker group layer to easily remove markers to refresh page
+  var markerGroup = L.layerGroup().addTo(mymap);
+
   mymap.locate();
 
   mymap.on('locationfound', function (info) {
@@ -107,8 +110,6 @@
     if (data.status === "error") {
       alert("Invalid parameters!");
     } else {
-      // Create marker group layer to easily remove markers to refresh page
-      var markerGroup = L.layerGroup().addTo(mymap);
       // Populates markers on map
       // var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {
