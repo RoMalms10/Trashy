@@ -19,7 +19,7 @@
         }
       })
     });
-    function delete () {
+    function deleteMarker () {
       var tempMarker = this;
       var markerLoc = tempMarker.getLatLng();
       console.log("In function for delete");
@@ -39,7 +39,7 @@
         }
       })
     }
-    $('#delete').click(function () {
+    // $('#delete').click(function () {
       // var tempMarker = this;
       // var markerLoc = tempMarker.getLatLng();
       // console.log("In function for delete");
@@ -58,7 +58,7 @@
       //     }
       //   }
       // })
-    });
+    // });
   // });
 
   var mymap = L.map('mapid').setView([37.752, -122.447], 16);
