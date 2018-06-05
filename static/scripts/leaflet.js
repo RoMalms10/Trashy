@@ -86,7 +86,6 @@
         dataType: 'json',
         data: JSON.stringify({'latitude': info.popup._source._latlng.lat, 'longitude': info.popup._source._latlng.lng}),
         success: function (data) {
-          console.log(data)
           // Removes the marker from the map
           if (data.status === "ok") {
             mymap.removeLayer(info.popup._source);
