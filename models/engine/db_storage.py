@@ -57,23 +57,16 @@ class DBStorage():
                 new_dict[key] = objects
         return new_dict
 
-    def get(self, cls, latitude, longitude, id):
+    def get(self, cls, latitude, longitude):
         """
         Method that retrieves an object based off the class (cls) passed
         and the latitude and longitude of the current marker
         """
-        print("Get recieved latitude: " + str(latitude))
-        print("Get recieved longitude: " + str(longitude))
         cls_dict = self.all(cls)
 
         if len(cls_dict) == 0:
             return None
-        print("Before Loop")
         for key, value in cls_dict.items():
-            if value.latitude == latitude:
-                print("Found matching latitude: ", latitude)
-            if value.longitude == longitude:
-                print("Found matching longitude: ", longitude)
             if value.latitude == latitude and value.longitude == longitude:
                 return value
             if value.user_id == id:

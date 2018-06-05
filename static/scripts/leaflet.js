@@ -73,23 +73,16 @@
   }
 
   mymap.on('popupopen', function (info) {
-    console.log("Popup open");
-    console.log(info);
-    console.log(info.popup._latlng.lat)
-    console.log(info.popup._latlng.lng)
     $('#delete').click(function () {
-      console.log("In function for delete");
       $.ajax({
         url: '/delete',
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
-        data: JSON.stringify({'latitude': info.popup._latlng.lat, 'longitude': info.popup._latlng.lng}),
+        data: JSON.stringify({'latitude': info.popup._source._latlng.lat, 'longitude': info.popup._source._latlng.lng}),
         success: function (data) {
           // Removes the marker from the map
-          console.log(data);
           if (data.status === "ok") {
-            console.log("removing object");
             mymap.removeLayer(info.popup._source);
           } else {
             alert("Something went wrong")

@@ -88,7 +88,7 @@ def delete_marker():
     delete_info = request.get_json()
     # Confirm the user_id is the same as current user somehow
     # Gets the object to delete
-    marker_delete = storage.get("Marker", delete_info["latitude"], delete_info["longitude"], current_user.id)
+    marker_delete = storage.get("Marker", delete_info["latitude"], delete_info["longitude"])
     if marker_delete:
         marker_delete.delete()
         return json.dumps({"status": "ok"})
