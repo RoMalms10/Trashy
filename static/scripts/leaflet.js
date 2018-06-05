@@ -14,7 +14,7 @@
             var popup = data.name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
             var marker = L.marker([data.latitude, data.longitude]).bindPopup(popup).addTo(mymap);
           } else {
-            alert("Something went wrong")
+            alert("Invalid Parameters")
           }
         }
       })
@@ -70,6 +70,8 @@
         mymap.addLayer(marker);
       };
       // mymap.addLayer(markerClusters); 
+    } else {
+      alert("Invalid parameters!")
     }
   }
 
@@ -86,7 +88,7 @@
           if (data.status === "ok") {
             mymap.removeLayer(info.popup._source);
           } else {
-            alert("Something went wrong")
+            alert("Unable to delete marker")
           }
         }
       })
