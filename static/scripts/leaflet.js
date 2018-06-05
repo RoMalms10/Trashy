@@ -67,9 +67,9 @@
         }
         var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popupInfo);
         // markerClusters.addLayer(marker);
+        mymap.addLayer(marker);
       };
       // mymap.addLayer(markerClusters); 
-      mymap.addLayer(marker);
     }
   }
 
