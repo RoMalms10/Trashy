@@ -80,11 +80,11 @@ def add_marker():
         return None
     # most_recent is a list with 1 dict in it containing the most recent submit
     most_recent = storage.get_user_submitted(current_user.id)
+    print(most_recent)
     if len(most_recent) > 0:
         # Get current time to check if a submit has been made recently
         present = datetime.utcnow()
         # Subtract the two times
-        print(most_recent[0]["created_at"])
         mins_since_submit = divmod(present-most_recent[0]["created_at"], 60)
         if mins_since_submit < 1:
             return None
