@@ -79,12 +79,10 @@ class DBStorage():
         returns a list of objects that user submitted
         """
         users_list = []
-        query = 'SELECT created_at FROM markers WHERE user_id = "{}" ORDER BY created_at DESC LIMIT 1;'.format(user_id)
+        query = 'SELECT * FROM markers WHERE user_id = "{}" ORDER BY created_at DESC LIMIT 1;'.format(user_id)
         capture = self.raw_conn.execute(query)
         for objects in capture:
-            new_dict = {}
-            new_dict["created_at"] = objects[0]
-            users_list.append(new_dict)
+            users_list.append(objects)
         return users_list
 
     def new(self, obj):
