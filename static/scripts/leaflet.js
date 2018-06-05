@@ -9,14 +9,16 @@
         dataType: 'json',
         data: JSON.stringify({'latitude': center.lat, 'longitude': center.lng}),
         success: function (data) {
-          if (data.status === "error") {
-            alert("Please wait to submit another location")
-          // Adds the new marker to the map with the Delete button
-          } else if (data) {
+          if (data.status === "time") {
+            alert("Please wait to submit another location");
+          } else if (data.status === "duplicate") {
+            alert("Duplicate Post");
+          } else if (data.status === "error") {
+            alert("Invalid parameters");
+          } else {
+            // Adds the new marker to the map with the Delete button
             var popup = data.name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
             var marker = L.marker([data.latitude, data.longitude]).bindPopup(popup).addTo(mymap);
-          } else {
-            alert("Invalid Parameters")
           }
         }
       })

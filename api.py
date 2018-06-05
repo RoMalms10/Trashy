@@ -75,9 +75,9 @@ def add_marker():
     """
     post_info = request.get_json()
     if len(post_info) != 2:
-        return None
+        return jsonify({"status": "error"})
     if "latitude" not in post_info or "longitude" not in post_info:
-        return None
+        return jsonify({"status": "error"})
     # most_recent is a list with 1 dict in it containing the most recent submit
     most_recent = storage.get_user_submitted(current_user.id)
     print(most_recent)
@@ -89,13 +89,17 @@ def add_marker():
         # Subtract the two times
         mins_since_submit = present-recent
         if (mins_since_submit.total_seconds() / 60) < 1:
-            return jsonify({"status": "error"})
-    new_marker = classes["Marker"]()
-    new_marker.latitude = post_info["latitude"]
-    new_marker.longitude = post_info["longitude"]
-    new_marker.user_id = current_user.id
-    new_marker.save()
-    return jsonify(new_marker.to_dict())
+            return jsonify({"status": "time"})
+    check_db = storage.get("Marker", delete_info["latitude"], delete_info["longitude"])
+    if check_db is None:
+        new_marker = classes["Marker"]()
+        new_marker.latitude = post_info["latitude"]
+        new_marker.longitude = post_info["longitude"]
+        new_marker.user_id = current_user.id
+        new_marker.save()
+        return jsonify(new_marker.to_dict())
+    else:
+        return jsonify({"status": "duplicate"})
 
 @app.route('/delete', methods=["POST"])
 def delete_marker():
