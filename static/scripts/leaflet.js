@@ -69,12 +69,12 @@
       popupAnchor: [1, -34],
       shadowSize: [41, 41]
   });
-  crosshair = new L.marker(map.getCenter(), {icon: crosshairIcon, clickable:false});
-  crosshair.addTo(map);
+  crosshair = new L.marker(mymap.getCenter(), {icon: crosshairIcon, clickable:false});
+  crosshair.addTo(mymap);
 
   // Move the crosshair to the center of the map when the user pans
-  map.on('move', function(e) {
-      crosshair.setLatLng(map.getCenter());
+  mymap.on('move', function(e) {
+      crosshair.setLatLng(mymap.getCenter());
   });
 
   var greenIcon = new L.Icon({
