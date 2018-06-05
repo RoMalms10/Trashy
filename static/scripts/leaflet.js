@@ -18,7 +18,7 @@
           } else {
             // Adds the new marker to the map with the Delete button
             var popup = data.name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
-            var marker = L.marker([data.latitude, data.longitude]).bindPopup(popup).addTo(mymap);
+            var marker = L.marker([data.latitude, data.longitude], {icon: greenIcon}).bindPopup(popup).addTo(mymap);
           }
         }
       })
@@ -59,15 +59,16 @@
     })
   });
 
+  var greenIcon = new L.Icon({
+    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
   function putMarkers (data) {
-    var greenIcon = new L.Icon({
-      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
     if (data.status === "error") {
       alert("Invalid parameters!");
     } else {
