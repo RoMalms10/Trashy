@@ -19,6 +19,9 @@
         }
       })
     });
+  mymap.on('popupopen', function (info) {
+    console.log("Popup open");
+    console.log(info);
     $('#delete').click(function () {
       var tempMarker = this;
       var markerLoc = tempMarker.getLatLng();
@@ -39,6 +42,7 @@
         }
       })
     });
+  })
   // });
 
   var mymap = L.map('mapid').setView([37.752, -122.447], 16);
