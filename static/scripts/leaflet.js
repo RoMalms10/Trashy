@@ -12,7 +12,7 @@
           // Adds the new marker to the map with the Delete button
           if (data) {
             var popup = data.name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
-            var marker = L.marker([data.latitude, data.longitude]).bindPopup(popup);
+            var marker = L.marker([data.latitude, data.longitude]).bindPopup(popup).addTo(mymap);
           } else {
             alert("Something went wrong")
           }
