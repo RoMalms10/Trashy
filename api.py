@@ -77,6 +77,7 @@ def add_marker():
     new_marker = classes["Marker"]()
     new_marker.latitude = post_info["latitude"]
     new_marker.longitude = post_info["longitude"]
+    new_marker.user_id = current_user.id
     new_marker.save()
     print(new_marker.id)
     return jsonify(new_marker.to_dict())
