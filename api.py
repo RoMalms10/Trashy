@@ -84,7 +84,8 @@ def add_marker():
         # Get current time to check if a submit has been made recently
         present = datetime.utcnow()
         # Subtract the two times
-        mins_since_submit = divmod(present-most_recent[0].created_at, 60)
+        print(most_recent[0]["created_at"])
+        mins_since_submit = divmod(present-most_recent[0]["created_at"], 60)
         if mins_since_submit < 1:
             return None
     new_marker = classes["Marker"]()
