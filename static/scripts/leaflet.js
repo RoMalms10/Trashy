@@ -110,6 +110,7 @@
     if (data.status === "error") {
       alert("Invalid parameters!");
     } else {
+      markerGroup = L.layerGroup().addTo(mymap);
       // Populates markers on map
       // var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {
