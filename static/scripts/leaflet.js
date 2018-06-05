@@ -75,8 +75,8 @@
   mymap.on('popupopen', function (info) {
     console.log("Popup open");
     console.log(info);
-    console.log(info.latitude);
-    console.log(info.longitude)
+    console.log(info.popup._latlng.lat)
+    console.log(info.popup._latlng.lng)
     $('#delete').click(function () {
       console.log("In function for delete");
       $.ajax({
@@ -84,7 +84,7 @@
         type: 'POST',
         contentType: 'application/json',
         dataType: 'json',
-        data: JSON.stringify({'latitude': info.latitude, 'longitude': info.longitude}),
+        data: JSON.stringify({'latitude': info.popup._latlng.lat, 'longitude': info.popup._latlng.lng}),
         success: function (data) {
           // Removes the marker from the map
           if (data) {
