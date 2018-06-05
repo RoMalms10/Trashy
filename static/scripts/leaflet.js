@@ -75,7 +75,6 @@
 
   mymap.on('popupopen', function (info) {
     $('#delete').click(function () {
-      console.log(info)
       $.ajax({
         url: '/delete',
         type: 'POST',
