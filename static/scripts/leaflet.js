@@ -108,7 +108,7 @@
           // var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>'
         } else {
           var popupInfo = data[i].name;
-          var marker = L.marker([data[i].latitude, data[i].longitude]).bindpopup(popupInfo);
+          var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popupInfo);
         }
         // var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popup).bindPopup($('#delete').click(delete));
         markerClusters.addLayer(marker);
