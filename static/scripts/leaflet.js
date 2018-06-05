@@ -87,7 +87,6 @@
         }
         var popup = popupInfo;
         var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popup);
-        marker.on("popupopen", onPopupOpen);
         markerClusters.addLayer(marker);
       };
       mymap.addLayer(markerClusters); 
