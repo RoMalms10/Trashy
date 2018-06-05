@@ -11,8 +11,8 @@
         success: function (data) {
           // Adds the new marker to the map with the Delete button
           if (data) {
-            var popup = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
-            var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popup);
+            var popup = data.name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
+            var marker = L.marker([data.latitude, data.longitude]).bindPopup(popup);
           } else {
             alert("Something went wrong")
           }
