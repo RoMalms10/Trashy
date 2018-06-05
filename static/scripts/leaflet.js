@@ -90,7 +90,7 @@
           console.log(data);
           if (data.status === "ok") {
             console.log("removing object");
-            mymap.removeLayer(info.sourceTarget);
+            mymap.removeLayer(info.popup._source);
           } else {
             alert("Something went wrong")
           }
