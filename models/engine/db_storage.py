@@ -62,6 +62,8 @@ class DBStorage():
         Method that retrieves an object based off the class (cls) passed
         and the latitude and longitude of the current marker
         """
+        print("Get recieved latitude: " + latitude)
+        print("Get recieved longitude: " + longitude)
         cls_dict = self.all(cls)
 
         if len(cls_dict) == 0:
