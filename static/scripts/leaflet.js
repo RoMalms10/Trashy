@@ -102,11 +102,13 @@
       for(var i = 0 ; i <= data.length-1; i++) {
         if (data[i].user_id) {
           var popupInfo = data[i].name + "<br/>";
-          var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popupInfo).bindPopup($('<div class="ui button" id="delete">Delete Trash Can</div>').click(deleteMarker));
+          var marker = L.marker([data[i].latitude, data[i].longitude]);
+          marker._popup.setContent(popupInfo);
+          marker.bindPopup($('<div class="ui button" id="delete">Delete Trash Can</div>').click(deleteMarker));
           // var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>'
         } else {
           var popupInfo = data[i].name;
-          var marker = L.marker([data[i].latitude, data[i].longitude]).bindpopup(popupInfo)
+          var marker = L.marker([data[i].latitude, data[i].longitude]).bindpopup(popupInfo);
         }
         // var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popup).bindPopup($('#delete').click(delete));
         markerClusters.addLayer(marker);
