@@ -69,8 +69,6 @@ class DBStorage():
         for key, value in cls_dict.items():
             if value.latitude == latitude and value.longitude == longitude:
                 return value
-            if value.user_id == id:
-                print(value)
         return None
 
     def get_user_submitted(self, user_id):
