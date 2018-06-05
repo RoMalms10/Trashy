@@ -62,8 +62,6 @@ def proximity_bins():
     while (len(prox_list) != 20):
         prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius*i)
         i = i + 1
-    print("Current User: ", current_user.id)
-    print(prox_list)
     return jsonify(prox_list)
 
 @app.route('/add', methods=["POST"])
@@ -79,7 +77,6 @@ def add_marker():
     new_marker.longitude = post_info["longitude"]
     new_marker.user_id = current_user.id
     new_marker.save()
-    print(new_marker.id)
     return jsonify(new_marker.to_dict())
 
 @app.route('/delete', methods=["POST"])
@@ -91,7 +88,7 @@ def delete_marker():
     delete_info = request.get_json()
     # Confirm the user_id is the same as current user somehow
     # Gets the object to delete
-    marker_delete = storage.get("Marker", delete_info["latitude"], delete_info["longitude"])
+    marker_delete = storage.get("Marker", delete_info["latitude"], delete_info["longitude"], current_user.id)
     if marker_delete:
         marker_delete.delete()
         return json.dumps({"status": "ok"})
