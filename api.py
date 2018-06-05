@@ -90,7 +90,7 @@ def add_marker():
         mins_since_submit = present-recent
         if (mins_since_submit.total_seconds() / 60) < 1:
             return jsonify({"status": "time"})
-    check_db = storage.get("Marker", delete_info["latitude"], delete_info["longitude"])
+    check_db = storage.get("Marker", post_info["latitude"], post_info["longitude"])
     if check_db is None:
         new_marker = classes["Marker"]()
         new_marker.latitude = post_info["latitude"]
