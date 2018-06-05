@@ -23,7 +23,7 @@
       $('#delete').click(function () {
         var tempMarker = this;
         var markerLoc = tempMarker.getLatLng();
-        console.log("In function for delete")
+        console.log("In function for delete");
         $.ajax({
           url: '/delete',
           type: 'POST',
@@ -33,7 +33,7 @@
           success: function (data) {
             // Removes the marker from the map
             if (data) {
-              mymap.removeLayer(myMarker);
+              mymap.removeLayer(tempMarker);
             } else {
               alert("Something went wrong")
             }
