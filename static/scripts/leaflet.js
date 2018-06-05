@@ -102,7 +102,7 @@
       var popupInfo = data[i].name;
       for(var i = 0 ; i <= data.length-1; i++) {
         if (data[i].user_id) {
-          var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popup).bindPopup($('<div class="ui button" id="delete">Delete Trash Can</div>').click(delete));
+          var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popup).bindPopup($('<div class="ui button" id="delete">Delete Trash Can</div>').click(deleteMarker));
           // var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>'
         } else {
           var marker = L.marker([data[i].latitude, data[i].longitude]).bindpopup(popup)
