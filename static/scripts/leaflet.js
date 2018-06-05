@@ -1,5 +1,5 @@
 (function() {
-  $(document).ready(function() {
+  // $(document).ready(function() {
     $('#submit').click(function() {
       center = mymap.getCenter();
       $.ajax({
@@ -41,7 +41,7 @@
         })
       });
   }
-  });
+  // });
 
   var mymap = L.map('mapid').setView([37.752, -122.447], 16);
   L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
