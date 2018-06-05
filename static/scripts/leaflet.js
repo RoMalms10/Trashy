@@ -25,6 +25,7 @@
     });
   // });
 
+  // Create Map
   var mymap = L.map('mapid').setView([37.752, -122.447], 16);
   L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -57,6 +58,23 @@
       data: JSON.stringify({'latitude': coords.lat, 'longitude': coords.lng}),
       success: putMarkers
     })
+  });
+
+  // Add in a crosshair for the map
+  var crosshairIcon = L.icon({
+      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+  });
+  crosshair = new L.marker(map.getCenter(), {icon: crosshairIcon, clickable:false});
+  crosshair.addTo(map);
+
+  // Move the crosshair to the center of the map when the user pans
+  map.on('move', function(e) {
+      crosshair.setLatLng(map.getCenter());
   });
 
   var greenIcon = new L.Icon({
