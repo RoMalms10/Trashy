@@ -19,30 +19,6 @@
         }
       })
     });
-  mymap.on('popupopen', function (info) {
-    console.log("Popup open");
-    console.log(info);
-    $('#delete').click(function () {
-      var tempMarker = this;
-      var markerLoc = tempMarker.getLatLng();
-      console.log("In function for delete");
-      $.ajax({
-        url: '/delete',
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify({'latitude': markerLoc.lat, 'longitude': markerLoc.lng}),
-        success: function (data) {
-          // Removes the marker from the map
-          if (data) {
-            mymap.removeLayer(tempMarker);
-          } else {
-            alert("Something went wrong")
-          }
-        }
-      })
-    });
-  })
   // });
 
   var mymap = L.map('mapid').setView([37.752, -122.447], 16);
@@ -95,4 +71,29 @@
       mymap.addLayer(markerClusters); 
     }
   }
+  
+  mymap.on('popupopen', function (info) {
+    console.log("Popup open");
+    console.log(info);
+    $('#delete').click(function () {
+      var tempMarker = this;
+      var markerLoc = tempMarker.getLatLng();
+      console.log("In function for delete");
+      $.ajax({
+        url: '/delete',
+        type: 'POST',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: JSON.stringify({'latitude': markerLoc.lat, 'longitude': markerLoc.lng}),
+        success: function (data) {
+          // Removes the marker from the map
+          if (data) {
+            mymap.removeLayer(tempMarker);
+          } else {
+            alert("Something went wrong")
+          }
+        }
+      })
+    });
+  })
 })();
