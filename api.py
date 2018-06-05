@@ -82,7 +82,7 @@ def add_marker():
     most_recent = storage.get_user_submitted(current_user.id)
     print(most_recent)
     if len(most_recent) > 0:
-        time_format = "%Y-%m-%dT%H:%M:%S.%f"
+        time_format = "%Y-%m-%d %H:%M:%S.%f"
         recent = datetime.strptime(most_recent[0]["created_at"], time_format)
         # Get current time to check if a submit has been made recently
         present = datetime.utcnow()
