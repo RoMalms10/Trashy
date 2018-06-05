@@ -89,7 +89,7 @@ def add_marker():
         # Subtract the two times
         mins_since_submit = present-recent
         if (mins_since_submit.total_seconds() / 60) < 1:
-            return None
+            return jsonify({"status": "error"})
     new_marker = classes["Marker"]()
     new_marker.latitude = post_info["latitude"]
     new_marker.longitude = post_info["longitude"]
