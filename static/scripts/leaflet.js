@@ -20,6 +20,7 @@
       })
     });
     function onPopupOpen () {
+      console.log("In popup function");
       $('#delete').click(function () {
         var tempMarker = this;
         var markerLoc = tempMarker.getLatLng();

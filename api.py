@@ -62,6 +62,8 @@ def proximity_bins():
     while (len(prox_list) != 20):
         prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius*i)
         i = i + 1
+    print("Current User: ", current_user.id)
+    print(prox_list)
     return jsonify(prox_list)
 
 @app.route('/add', methods=["POST"])
