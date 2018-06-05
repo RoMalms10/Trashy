@@ -2,6 +2,7 @@
 """
 Flask App that handles API requests and redirects
 """
+from datetime import datetime
 from flask import Flask, render_template, url_for, redirect, session
 from flask import jsonify, request
 from flask_login import LoginManager, login_required, login_user, \
@@ -77,6 +78,15 @@ def add_marker():
         return None
     if "latitude" not in post_info or "longitude" not in post_info:
         return None
+    # most_recent is a list with 1 dict in it containing the most recent submit
+    most_recent = storage.get_user_submitted(current_user.id)
+    if len(most_recent) > 0:
+        # Get current time to check if a submit has been made recently
+        present = datetime.utcnow()
+        # Subtract the two times
+        mins_since_submit = divmod(present-most_recent[0]["created_at"], 60)
+        if mins_since_submit < 1:
+            return None
     new_marker = classes["Marker"]()
     new_marker.latitude = post_info["latitude"]
     new_marker.longitude = post_info["longitude"]

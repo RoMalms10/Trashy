@@ -73,6 +73,19 @@ class DBStorage():
                 print(value)
         return None
 
+    def get_user_submitted(self, user_id):
+        """
+        Gets all the trash cans that a user has submitted
+        returns a list of objects that user submitted
+        """
+        query = "SELECT created_at FROM markers WHERE user_id = {} ORDER BY created_at DESC LIMIT 1;".format(user_id)
+        capture = self.raw_conn.execute(query)
+        for objects in capture:
+            new_dict = {}
+            new_dict["created_at"] = objects[0]
+            users_list.append(new_dict)
+        return users_list
+
     def new(self, obj):
         """
         Adds the object to the database
