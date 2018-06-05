@@ -100,12 +100,13 @@
       // Populates markers on map
       var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {
-        var popupInfo = data[i].name;
         if (data[i].user_id) {
-          var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popup).bindPopup($('<div class="ui button" id="delete">Delete Trash Can</div>').click(deleteMarker));
+          var popupInfo = data[i].name + "<br/>";
+          var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popupInfo).bindPopup($('<div class="ui button" id="delete">Delete Trash Can</div>').click(deleteMarker));
           // var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>'
         } else {
-          var marker = L.marker([data[i].latitude, data[i].longitude]).bindpopup(popup)
+          var popupInfo = data[i].name;
+          var marker = L.marker([data[i].latitude, data[i].longitude]).bindpopup(popupInfo)
         }
         // var marker = L.marker([data[i].latitude, data[i].longitude]).setContent(popup).bindPopup($('#delete').click(delete));
         markerClusters.addLayer(marker);
