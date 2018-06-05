@@ -58,7 +58,7 @@
   function putMarkers (data) {
     if (data) {
       // Populates markers on map
-      var markerClusters = L.markerClusterGroup();
+      // var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {
         if (data[i].user_id) {
           var popupInfo = data[i].name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
@@ -66,9 +66,10 @@
           var popupInfo = data[i].name;
         }
         var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popupInfo);
-        markerClusters.addLayer(marker);
+        // markerClusters.addLayer(marker);
       };
-      mymap.addLayer(markerClusters); 
+      // mymap.addLayer(markerClusters); 
+      mymap.addLayer(marker);
     }
   }
 
