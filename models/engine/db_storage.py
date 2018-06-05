@@ -70,6 +70,10 @@ class DBStorage():
             return None
         print("Before Loop")
         for key, value in cls_dict.items():
+            if value.latitude == latitude:
+                print("Found matching latitude: ", latitude)
+            if value.longitude == longitude:
+                print("Found matching longitude: ", longitude)
             if value.latitude == latitude and value.longitude == longitude:
                 return value
         return None

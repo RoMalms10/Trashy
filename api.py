@@ -92,8 +92,11 @@ def delete_marker():
     # Confirm the user_id is the same as current user somehow
     # Gets the object to delete
     marker_delete = storage.get("Marker", delete_info["latitude"], delete_info["longitude"])
-    marker_delete.delete()
-    return json.dumps({"status": "ok"})
+    if marker_delete:
+        marker_delete.delete()
+        return json.dumps({"status": "ok"})
+    else:
+        return json.dumps({"status": "error"})
 
 # Google OAuth
 @login_manager.user_loader
