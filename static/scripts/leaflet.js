@@ -9,8 +9,10 @@
         dataType: 'json',
         data: JSON.stringify({'latitude': center.lat, 'longitude': center.lng}),
         success: function (data) {
+          if (data.status === "error") {
+            alert("Please wait to submit another location")
           // Adds the new marker to the map with the Delete button
-          if (data) {
+          } else if (data) {
             var popup = data.name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
             var marker = L.marker([data.latitude, data.longitude]).bindPopup(popup).addTo(mymap);
           } else {
