@@ -87,8 +87,8 @@ def add_marker():
         # Get current time to check if a submit has been made recently
         present = datetime.utcnow()
         # Subtract the two times
-        mins_since_submit = divmod(present-recent, 60)
-        if mins_since_submit < 1:
+        mins_since_submit = present-recent
+        if (mins_since_submit.total_seconds() / 60) < 1:
             return None
     new_marker = classes["Marker"]()
     new_marker.latitude = post_info["latitude"]
