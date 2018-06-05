@@ -86,10 +86,29 @@
     shadowSize: [41, 41]
   });
 
+  // Add button on map
+  L.easyButton('<span class="search">&telrec;</span>', function() {
+    // Remove markers currently on map
+    mymap.removeLayer(markerGroup);
+    // Get the new center of map
+    let coords = mymap.getCenter();
+    // Get the markers
+    $.ajax({
+      url: '/api/bins/proximity',
+      type: 'POST',
+      contentType: 'application/json',
+      dataType: 'json',
+      data: JSON.stringify({'latitude': coords.lat, 'longitude': coords.lng}),
+      success: putMarkers
+    })
+  }).addTo(mymap);
+
   function putMarkers (data) {
     if (data.status === "error") {
       alert("Invalid parameters!");
     } else {
+      // Create marker group layer to easily remove markers to refresh page
+      var markerGroup = L.layerGroup().addTo(map);
       // Populates markers on map
       // var markerClusters = L.markerClusterGroup();
       for(var i = 0 ; i <= data.length-1; i++) {
@@ -100,8 +119,9 @@
           var popupInfo = data[i].name;
           var marker = L.marker([data[i].latitude, data[i].longitude]).bindPopup(popupInfo);
         }
+        marker.addTo(markerGroup);
         // markerClusters.addLayer(marker);
-        mymap.addLayer(marker);
+        // mymap.addLayer(marker);
       };
       // mymap.addLayer(markerClusters); 
     }
