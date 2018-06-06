@@ -3,7 +3,7 @@
     $('#submit').click(function () {
       $(this).attr('id', 'really_submit');
       $(this).text('Confirm location');
-      addCrosshair;
+      addCrosshair();
     });
 
     $('#really_submit').click(function() {
