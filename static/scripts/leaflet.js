@@ -5,9 +5,11 @@
       if (submitState === false) {
         addCrosshair();
         submitState = true;
+        $(this).text("Confirm Location");
       } else {
         submitState = false;
         mymap.removeLayer(crosshair);
+        $(this).text("Submit a Trash Can");
         center = mymap.getCenter();
         $.ajax({
           url: '/add',
