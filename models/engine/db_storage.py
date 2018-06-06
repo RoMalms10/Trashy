@@ -61,6 +61,7 @@ class DBStorage():
         """
         Method that retrieves an object based off the class (cls) passed
         and the latitude and longitude of the current marker
+        Returns an object or list of objects if there are trash cans already near that location
         """
         cls_dict = self.all(cls)
 
@@ -69,6 +70,11 @@ class DBStorage():
         for key, value in cls_dict.items():
             if value.latitude == latitude and value.longitude == longitude:
                 return value
+        # See if there is a trahs can within 2 meters
+        check_proximity = self.proximity(latitude, longitude, .002)
+        if len(check_proximity > 0):
+            return check_proximity
+        # If made it here, no trash cans were found at or near the location and can safely add to db
         return None
 
     def get_user_submitted(self, user_id):
