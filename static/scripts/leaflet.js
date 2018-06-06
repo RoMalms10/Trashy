@@ -122,7 +122,7 @@
     })
   }).addTo(mymap);
 
-    // Add button on map
+    // Add button on map o locate self if the map moves
     // L.easyButton('<span class="re-locate" title="Find your location">&curren;</span>', function() {
     //   mymap.locate();
     // }).addTo(mymap);
