@@ -1,9 +1,9 @@
 (function() {
   // $(document).ready(function() {
     $('#submit').click(function () {
-      $(this).unbind();
       $(this).attr('id', 'really_submit');
-      $(this).bind();
+      $('#submit').unbind();
+      $('#really_submit').bind();
       $(this).text('Confirm location');
       addCrosshair();
     });
