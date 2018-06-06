@@ -1,3 +1,7 @@
+body {
+    background-color: #1b1c1d;
+}
+
 .hidden.menu {
     display: none;
 }
@@ -37,4 +41,8 @@
 }
 
 @media only screen and (min-width: 501px) {
+}
+
+.search {
+    font-size: 1.5em;
 }

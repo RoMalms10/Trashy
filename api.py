@@ -2,6 +2,7 @@
 """
 Flask App that handles API requests and redirects
 """
+from datetime import datetime
 from flask import Flask, render_template, url_for, redirect, session
 from flask import jsonify, request
 from flask_login import LoginManager, login_required, login_user, \
@@ -57,12 +58,75 @@ def proximity_bins():
     """
     radius = .02
     post_info = request.get_json()
+    if "latitude" not in post_info or "longitude" not in post_info:
+        return jsonify({"status": "error"})
     prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius)
     i = 2
-    while (len(prox_list) != 20):
+    while (len(prox_list) != 20 and i < 1000):
         prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius*i)
         i = i + 1
+    if (i == 1000 and len(prox_list) == 0):
+        return jsonify({"status": "nothing found"})
+    for dicts in prox_list:
+        if current_user.is_authenticated:
+            if dicts["user_id"] != current_user.id:
+                dicts.pop("user_id", None)
+        else:
+            dicts.pop("user_id", None)
     return jsonify(prox_list)
+
+@app.route('/add', methods=["POST"])
+def add_marker():
+    """
+    Takes in a POST request to create a new marker from a signed in user
+    Returns the object itself that was created
+    """
+    post_info = request.get_json()
+    if len(post_info) != 2:
+        return jsonify({"status": "error"})
+    if "latitude" not in post_info or "longitude" not in post_info:
+        return jsonify({"status": "error"})
+    # most_recent is a list with 1 dict in it containing the most recent submit
+    most_recent = storage.get_user_submitted(current_user.id)
+    if len(most_recent) > 0:
+        time_format = "%Y-%m-%d %H:%M:%S.%f"
+        recent = datetime.strptime(most_recent[0]["created_at"], time_format)
+        # Get current time to check if a submit has been made recently
+        present = datetime.utcnow()
+        # Subtract the two times
+        mins_since_submit = present-recent
+        if (mins_since_submit.total_seconds() / 60) < 1:
+            return jsonify({"status": "time"})
+    check_db = storage.get("Marker", post_info["latitude"], post_info["longitude"])
+    # If a value is returned, there is already a marker there
+    if check_db is None:
+        new_marker = classes["Marker"]()
+        new_marker.latitude = post_info["latitude"]
+        new_marker.longitude = post_info["longitude"]
+        new_marker.user_id = current_user.id
+        new_marker.save()
+        return jsonify(new_marker.to_dict())
+    else:
+        return jsonify({"status": "duplicate"})
+
+@app.route('/delete', methods=["POST"])
+def delete_marker():
+    """
+    Takes a POST request with latitude and longitude to delete from DB
+    Returns {"status": ok} on success
+    """
+    delete_info = request.get_json()
+    if len(delete_info) != 2:
+        return json.dumps({"status": "error"})
+    if "latitude" not in delete_info or "longitude" not in delete_info:
+        return json.dumps({"status": "error"})
+    # Gets the object to delete
+    marker_delete = storage.get("Marker", delete_info["latitude"], delete_info["longitude"])
+    if marker_delete:
+        marker_delete.delete()
+        return json.dumps({"status": "ok"})
+    else:
+        return json.dumps({"status": "error"})
 
 # Google OAuth
 @login_manager.user_loader
@@ -131,9 +195,6 @@ def callback():
                 user.name = user_data['name']
                 user.tokens = json.dumps(token)
                 storage.save()
-            # print("before commit")
-            # user.save()
-            # print("after commit")
             login_user(user)
             return redirect(url_for('render_map_page'))
         return 'Could not fetch your information.'

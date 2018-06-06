@@ -19,4 +19,4 @@ class User(BaseModel, Base, UserMixin):
     tokens = Column(Text)
     email = Column(String(60), nullable=False, unique=True)
     active = Column(Boolean, default=False)
-    # markers = relationship('Marker', backref='user')
+    markers = relationship('Marker', backref='user')

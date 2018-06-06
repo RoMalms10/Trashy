@@ -20,4 +20,5 @@ if __name__ == "__main__":
             new_dict['longitude'] = float(lng)
             marker = models.classes["Marker"](**new_dict)
             marker.save()
+    print("Done!")
     print(len(models.storage.all()))
