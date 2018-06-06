@@ -38,6 +38,24 @@ def render_map_page():
     """
     return render_template('map.html')
 
+@app.route('/about')
+def about_page():
+    """
+    Serves the About page
+    """
+    return render_template('about.html')
+
+@app.route('/to_map')
+def to_map():
+    """
+    From the About page, brings the user back to index if they aren't logged in
+    and will bring back to map if they are logged in
+    """
+    if current_user.is_authenticated:
+        return url_for('render_map_page')
+    else:
+        return url_for('landing_page')
+
 # API Backend
 @app.route('/api/bins')
 def get_bins():
