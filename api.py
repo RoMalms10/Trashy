@@ -52,9 +52,9 @@ def to_map():
     and will bring back to map if they are logged in
     """
     if current_user.is_authenticated:
-        return url_for('render_map_page')
+        return redirect(url_for('render_map_page'))
     else:
-        return url_for('landing_page')
+        return redirect(url_for('landing_page'))
 
 # API Backend
 @app.route('/api/bins')
