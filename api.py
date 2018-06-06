@@ -65,6 +65,8 @@ def proximity_bins():
     while (len(prox_list) != 20 and i < 1000):
         prox_list = storage.proximity(post_info["latitude"], post_info["longitude"], radius*i)
         i = i + 1
+    if (i == 1000 and len(prox_list) == 0):
+        return jsonify({"status": "nothing found"})
     for dicts in prox_list:
         if current_user.is_authenticated:
             if dicts["user_id"] != current_user.id:

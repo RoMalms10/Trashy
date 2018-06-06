@@ -15,6 +15,8 @@
             alert("Duplicate Post");
           } else if (data.status === "error") {
             alert("Invalid parameters");
+          } else if (data.status === "nothing found") {
+            alert("No nearby trash cans")
           } else {
             // Adds the new marker to the map with the Delete button
             var popup = data.name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';

@@ -118,6 +118,7 @@ class DBStorage():
     def proximity(self, latitude=None, longitude=None, radius=.02):
         """
         Search for closest 20 trash can near the user
+        Haversine Formula with meters
         Returns a list of dictionaries containing information about 20 objects nearest to the user (NOT OBJECT THEMSELVES)
         """
         new_list = []
