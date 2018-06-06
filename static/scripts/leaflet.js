@@ -148,4 +148,13 @@
       })
     });
   })
+
+  navigator.geolocation.watchPosition(function(position) {
+    
+  },
+  function (error) { 
+    if (error.code == error.PERMISSION_DENIED)
+        alert("Please allow geolocation, or I can't find the nearest Trash Cans to you easily!");
+  });
+
 })();
