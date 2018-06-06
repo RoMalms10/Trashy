@@ -90,7 +90,7 @@
   });
 
   // Add button on map
-  L.easyButton('<span class="search">&telrec;</span>', function() {
+  L.easyButton('<span class="search" title="Search This Area">&telrec;</span>', function() {
     // Remove markers currently on map
     mymap.removeLayer(markerGroup);
     // Get the new center of map
@@ -150,7 +150,7 @@
   })
 
   navigator.geolocation.watchPosition(function(position) {
-    
+
   },
   function (error) { 
     if (error.code == error.PERMISSION_DENIED)
