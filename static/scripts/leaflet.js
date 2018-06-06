@@ -122,6 +122,11 @@
     })
   }).addTo(mymap);
 
+    // Add button on map
+    L.easyButton('<span class="re-locate" title="Find your location">&curren;</span>', function() {
+      mymap.locate();
+    }).addTo(mymap);
+
   function putMarkers (data) {
     if (data.status === "error") {
       alert("Invalid parameters!");
