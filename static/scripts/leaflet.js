@@ -125,6 +125,32 @@
     // Add button on map
     L.easyButton('<span class="re-locate" title="Find your location">&curren;</span>', function() {
       mymap.locate();
+      mymap.on('locationfound', function (info) {
+        // var radius = info.accuracy / 7;
+        mymap.setView([info.latitude, info.longitude], 16)
+        L.circle(info.latlng, 10).addTo(mymap);
+        $.ajax({
+          url: '/api/bins/proximity',
+          type: 'POST',
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify({'latitude': info.latitude, 'longitude': info.longitude}),
+          success: putMarkers
+        })
+      });
+    
+      mymap.on('locationerror', function (info) {
+        mymap.setView([37.752, -122.447], 16);
+        let coords = mymap.getCenter()
+        $.ajax({
+          url: '/api/bins/proximity',
+          type: 'POST',
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify({'latitude': coords.lat, 'longitude': coords.lng}),
+          success: putMarkers
+        })
+      });
     }).addTo(mymap);
 
   function putMarkers (data) {
