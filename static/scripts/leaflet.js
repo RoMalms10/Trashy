@@ -1,6 +1,12 @@
 (function() {
   // $(document).ready(function() {
-    $('#submit').click(function() {
+    $('#submit').click(function () {
+      $(this).attr('id', 'really_submit');
+      $(this).text('Confirm location');
+      addCrosshair;
+    });
+
+    $('#really_submit').click(function() {
       center = mymap.getCenter();
       $.ajax({
         url: '/add',
@@ -24,6 +30,9 @@
           }
         }
       })
+      $(this).text('Submit a Trash Can');
+      $(this).attr('id', 'submit');
+      mymap.removeLayer(crosshairIcon);
     });
   // });
 
@@ -65,22 +74,26 @@
     })
   });
 
-  // Add in a crosshair for the map
+  // Create icon for crosshair when confirming trash can location
   var crosshairIcon = L.icon({
-      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png',
-      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
+    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
   });
-  crosshair = new L.marker(mymap.getCenter(), {icon: crosshairIcon, clickable:false});
-  crosshair.addTo(mymap);
 
-  // Move the crosshair to the center of the map when the user pans
-  mymap.on('move', function(e) {
-      crosshair.setLatLng(mymap.getCenter());
-  });
+  function addCrosshair () {
+    // Add in a crosshair for the map
+    crosshair = new L.marker(mymap.getCenter(), {icon: crosshairIcon, clickable:false});
+    crosshair.addTo(mymap);
+
+    // Move the crosshair to the center of the map when the user pans
+    mymap.on('move', function(e) {
+        crosshair.setLatLng(mymap.getCenter());
+    });
+  }
 
   var greenIcon = new L.Icon({
     iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
