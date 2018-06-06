@@ -158,7 +158,7 @@ def login():
     auth_url, state = google.authorization_url(
         classes["Auth"].AUTH_URI, access_type='offline')
     session['oauth_state'] = state
-    return redirect(auth_url=auth_url)
+    return redirect(auth_url)
     # render_template 'login.html', 
 
 @app.route('/gCallback')
