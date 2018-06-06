@@ -1,40 +1,36 @@
 (function() {
   // $(document).ready(function() {
+    let submitState = false;
     $('#submit').click(function () {
-      $(this).attr('id', 'really_submit');
-      $('#submit').unbind();
-      $('#really_submit').bind();
-      $(this).text('Confirm location');
-      addCrosshair();
-    });
-
-    $('#really_submit').click(function() {
-      center = mymap.getCenter();
-      $.ajax({
-        url: '/add',
-        type: 'POST',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: JSON.stringify({'latitude': center.lat, 'longitude': center.lng}),
-        success: function (data) {
-          if (data.status === "time") {
-            alert("Please wait to submit another location");
-          } else if (data.status === "duplicate") {
-            alert("Duplicate Post");
-          } else if (data.status === "error") {
-            alert("Invalid parameters");
-          } else if (data.status === "nothing found") {
-            alert("No nearby trash cans")
-          } else {
-            // Adds the new marker to the map with the Delete button
-            var popup = data.name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
-            var marker = L.marker([data.latitude, data.longitude], {icon: greenIcon}).bindPopup(popup).addTo(mymap);
+      if (submitState === false) {
+        addCrosshair();
+        submitState = true;
+      } else {
+        submitState = false;
+        center = mymap.getCenter();
+        $.ajax({
+          url: '/add',
+          type: 'POST',
+          contentType: 'application/json',
+          dataType: 'json',
+          data: JSON.stringify({'latitude': center.lat, 'longitude': center.lng}),
+          success: function (data) {
+            if (data.status === "time") {
+              alert("Please wait to submit another location");
+            } else if (data.status === "duplicate") {
+              alert("Duplicate Post");
+            } else if (data.status === "error") {
+              alert("Invalid parameters");
+            } else if (data.status === "nothing found") {
+              alert("No nearby trash cans")
+            } else {
+              // Adds the new marker to the map with the Delete button
+              var popup = data.name + '<br/>' + '<div class="ui button" id="delete">Delete Trash Can</div>';
+              var marker = L.marker([data.latitude, data.longitude], {icon: greenIcon}).bindPopup(popup).addTo(mymap);
+            }
           }
-        }
-      })
-      $(this).text('Submit a Trash Can');
-      $(this).attr('id', 'submit');
-      mymap.removeLayer(crosshairIcon);
+        })
+      }
     });
   // });
 
@@ -76,7 +72,7 @@
     })
   });
 
-  // Create icon for crosshair when confirming trash can location
+  // Create icon for crosshair
   var crosshairIcon = L.icon({
     iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -87,7 +83,6 @@
   });
 
   function addCrosshair () {
-    console.log("Trying to add crosshair");
     // Add in a crosshair for the map
     crosshair = new L.marker(mymap.getCenter(), {icon: crosshairIcon, clickable:false});
     crosshair.addTo(mymap);
