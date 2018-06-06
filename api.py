@@ -56,6 +56,21 @@ def to_map():
     else:
         return redirect(url_for('landing_page'))
 
+# Handling Errors
+@app.errorhandler(404)
+def page_not_found(e):
+    """
+    Returns the custom 404 page
+    """
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    """
+    Returns the custom 500 page
+    """
+    return render_template('500.html'), 500
+
 # API Backend
 @app.route('/api/bins')
 def get_bins():
