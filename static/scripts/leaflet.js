@@ -7,6 +7,7 @@
         submitState = true;
       } else {
         submitState = false;
+        mymap.removeLayer(crosshair);
         center = mymap.getCenter();
         $.ajax({
           url: '/add',
