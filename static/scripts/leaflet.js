@@ -85,6 +85,7 @@
   });
 
   function addCrosshair () {
+    console.log("Trying to add crosshair");
     // Add in a crosshair for the map
     crosshair = new L.marker(mymap.getCenter(), {icon: crosshairIcon, clickable:false});
     crosshair.addTo(mymap);
