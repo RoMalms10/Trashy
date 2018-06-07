@@ -47,16 +47,21 @@
                 <!-- NAVIGATION BAR -->
                 <div class="ui inverted segment">
                     <div class="ui inverted secondary pointing menu">
+                            <a class="active item">Map</a>
+                            <a class="item" href="/about">About</a>
                         <div class="right menu">
                             <a class="item" href="/logout">Logout</a>
                         </div>
                     </div>
                 </div>
             
+                <h1><img src="../static/images/trash_can.png" alt="Trash Can" style="width:22px;height:22px;">Trashy<img src="../static/images/trash_can.png" alt="Trash Can" style="width:22px;height:22px;"></h1>
+                <p>Clicking the Submit button will make a marker appear on your map. Please confirm the location by moving the marker to the desired location and hit Confirm.</p>
+
                 <!-- CENTER OF PAGE CONTAINER -->
                 <div id="mapid"></div>
                 </br>
-                <div class="ui button" id="submit">Submit a Trash Can</div>
+                <div class="ui button" id="submit">Show Trash Can Locator</div>
             </div>
         </div>
         <script src="../static/scripts/leaflet.js"></script>

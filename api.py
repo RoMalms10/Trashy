@@ -38,6 +38,39 @@ def render_map_page():
     """
     return render_template('map.html')
 
+@app.route('/about')
+def about_page():
+    """
+    Serves the About page
+    """
+    return render_template('about.html')
+
+@app.route('/to_map')
+def to_map():
+    """
+    From the About page, brings the user back to index if they aren't logged in
+    and will bring back to map if they are logged in
+    """
+    if current_user.is_authenticated:
+        return redirect(url_for('render_map_page'))
+    else:
+        return redirect(url_for('landing_page'))
+
+# Handling Errors
+@app.errorhandler(404)
+def page_not_found(e):
+    """
+    Returns the custom 404 page
+    """
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    """
+    Returns the custom 500 page
+    """
+    return render_template('500.html'), 500
+
 # API Backend
 @app.route('/api/bins')
 def get_bins():
@@ -158,7 +191,7 @@ def login():
     auth_url, state = google.authorization_url(
         classes["Auth"].AUTH_URI, access_type='offline')
     session['oauth_state'] = state
-    return render_template('login.html', auth_url=auth_url)
+    return redirect(auth_url)
 
 @app.route('/gCallback')
 def callback():

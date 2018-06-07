@@ -5,11 +5,11 @@
       if (submitState === false) {
         addCrosshair();
         submitState = true;
-        $(this).text("Confirm Location");
+        $(this).text("Submit Trash Can");
       } else {
         submitState = false;
         mymap.removeLayer(crosshair);
-        $(this).text("Submit a Trash Can");
+        $(this).text("Show Trash Can Locator");
         center = mymap.getCenter();
         $.ajax({
           url: '/add',
@@ -106,7 +106,7 @@
   });
 
   // Add button on map
-  L.easyButton('<span class="search" title="Search This Area">&telrec;</span>', function() {
+  L.easyButton('<span class="search" title="Search This Area">&circlearrowright;</span>', function() {
     // Remove markers currently on map
     mymap.removeLayer(markerGroup);
     // Get the new center of map
@@ -121,6 +121,11 @@
       success: putMarkers
     })
   }).addTo(mymap);
+
+    // Add button on map o locate self if the map moves
+    // L.easyButton('<span class="re-locate" title="Find your location">&curren;</span>', function() {
+    //   mymap.locate();
+    // }).addTo(mymap);
 
   function putMarkers (data) {
     if (data.status === "error") {
