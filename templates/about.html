@@ -36,12 +36,42 @@
                     </div>
                 </div>
             </div>
-            <div class="ui container">
+            <div id ="about" class="ui container">
                 <h1>About <img src="../static/images/trash_can.png" alt="Trash Can" style="width:22px;height:22px;">Trashy<img src="../static/images/trash_can.png" alt="Trash Can" style="width:22px;height:22px;"></h1>
                 <p>Trashy was made to make locating trash cans easier. It uses geolocation to find your position and displays the nearest 20 trash cans to you. Users who sign in via Google can also submit trash cans. These trash cans can be seen by anyone, but users who submit them can see which ones are theirs by the green markers.</p>
+                <h1>Marker Colors</h1>
+                <p>Green Marker: Signifies trash can locations that you submitted.</p>
+                <p>Blue Marker: Signifies trash can locations that others have submitted.</p>
+                <p>Black Marker: Helps to identify where the center of the map is when submitting a trash can location.</p>
+                <br/>
+                <h1>How to use Trashy</h1>
+                <h3><u>Step One:</u></h3>
+                <p>Allow geolocation through your web browser. Without this, Trashy can't find the neareast trash cans to you easily.</p>
+                <h3><u>Step Two:</u></h3>
+                <p>Sign in with Google using the Login Button on the top right of th map page.</p>
+                <h3><u>Step Three:</u></h3>
+                <p>Click the Submit a Trash Can button. This will show a marker on the map so you can pinpoint the exact location of the garbage can before submitting it.</p>
+                <h3><u>Step Four:</u></h3>
+                <p>Move the marker to the correct location and hit the Confirm location button.</p>
+                <h3><u>Step Five:</u></h3>
+                <p>A green marker should now appear if there were no duplicate entries at that position. This Green Marker signifies that you added this location.</p>
+                <br/>
                 <h1>About Me</h1>
                 <p>I'm a Full-Stack Software Engineer studying at Holberton School. I made this web app over two weeks - implementing front-end, back-end and server operations.</p>
             </div>
+            <h1 class="ui header">Have Questions?</h2>
+            <div class="ui inverted form">
+                <div class="field">
+                  <label>Your Email Address</label>
+                  <textarea rows="1"></textarea>
+                </div>
+                <div class="field">
+                  <label>Message</label>
+                  <textarea></textarea>
+                </div>
+            </div>
+            </br>
+            <div class="ui button" id="submit">Submit</div>
         </div>
         
     </body>

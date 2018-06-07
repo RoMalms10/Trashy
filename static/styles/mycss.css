@@ -50,3 +50,22 @@ body {
 .re-locate {
     font-size: 1.5em;
 }
+
+#about {
+    width: 50%;
+}
+
+#about p {
+    text-align: left;
+    font-size: 18px;
+}
+
+#about h3 {
+    text-align: left;
+    font-size: 20px;
+}
+
+.ui.inverted.form {
+    width: 56%;
+    margin-left: 22%;
+}
