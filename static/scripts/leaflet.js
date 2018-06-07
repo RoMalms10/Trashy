@@ -106,7 +106,7 @@
   });
 
   // Add button on map
-  L.easyButton('<span class="search" title="Search This Area">&telrec;</span>', function() {
+  L.easyButton('<span class="search" title="Search This Area">&circlearrowright;</span>', function() {
     // Remove markers currently on map
     mymap.removeLayer(markerGroup);
     // Get the new center of map
