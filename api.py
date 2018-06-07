@@ -28,7 +28,10 @@ def landing_page():
     """
     Render the landing page
     """
-    return render_template('index.html')
+    if current_user.is_authenticated:
+        return redirect(url_for('render_map_page'))
+    else:
+        return render_template('index.html')
 
 @app.route('/map')
 @login_required
