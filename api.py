@@ -117,6 +117,8 @@ def add_marker():
     Takes in a POST request to create a new marker from a signed in user
     Returns the object itself that was created
     """
+    if not current_user.is_authenticated:
+        return json.dumps({"status": "error"})
     post_info = request.get_json()
     if len(post_info) != 2:
         return jsonify({"status": "error"})
@@ -151,6 +153,8 @@ def delete_marker():
     Takes a POST request with latitude and longitude to delete from DB
     Returns {"status": ok} on success
     """
+    if not current_user.is_authenticated:
+        return json.dumps({"status": "error"})
     delete_info = request.get_json()
     if len(delete_info) != 2:
         return json.dumps({"status": "error"})
