@@ -1,6 +1,20 @@
+* {
+    font-family: 'Raleway', sans-serif !important;
+}
+
+html, body {
+    height: 100%;
+}
+
 body {
     background-color: #1b1c1d;
 }
+
+.instructions {
+    font-size: 1em;
+}
+
+
 
 .hidden.menu {
     display: none;
@@ -37,10 +51,16 @@ body {
     background-color: grey;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-height: 850px) {
+    #mapid {
+        height: 300px;
+    }
 }
 
-@media only screen and (min-width: 501px) {
+@media only screen and (max-height: 600px) {
+    .instructions {
+        font-size: .9em;
+    }
 }
 
 .search {
